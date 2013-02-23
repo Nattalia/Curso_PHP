@@ -11,8 +11,8 @@
 
 require 'functions.php';
 
-$rows = 20;			// Grid's rows 
-$columns = 20;  		// Grid's columns
+$rows = 15;			// Grid's rows 
+$columns = 15;  		// Grid's columns
 
 $cells = $rows * $columns;	// Grid's cells 
 
