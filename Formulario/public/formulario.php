@@ -3,9 +3,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<body>	
 		<h1>Mi formulario</h1>		
-		<form action="procesa.php" method="get" enctype="multipart/form-data" >		
+		<form action="procesa.php" method="post" enctype="multipart/form-data" >		
 			<div style="color:#0000FF">			
-				Id.: <input type="hidden" name="id"><br><br>
+				Id.: <input type="hidden" name="id" value="01"><br><br>
 				Nombre: <input type="text" name="name"><br><br>
 				Email: <input type="text" name="email"><br><br>
 				Contraseña: <input type="password" name="password"><br><br>
