@@ -63,31 +63,58 @@ function stringFormated($post, $files)
  */
 
 function writeToFile($string, $file)
-{	
-	$fileWritten = TRUE;
-	//if (is_writable($file)) 
-	//{	
-		if (!$handler = fopen($file, 'a')) 
-		{
-			$fileWritten = FALSE;
-			echo "Error en fopen";
-			return $fileWritten;			
-		}
+{		
+	// Otra forma
+	
+	$fileWritten = TRUE;	
+	if (!$handler = fopen($file, 'a')) 
+	{
+		$fileWritten = FALSE;
+		echo "Error en fopen";
+		return $fileWritten;			
+	}
 
-		if (fwrite($handler, $string) === FALSE) 
-		{
-			$fileWritten = FALSE;
-			echo "Error en fwrite";
-			return $fileWritten;
-		}
+	if (fwrite($handler, $string) === FALSE) 
+	{
+		$fileWritten = FALSE;
+		echo "Error en fwrite";
+		return $fileWritten;
+	}
 				
-		fclose($handler);
-	
-	//} else
-	//{	 
-	//	$fileWritten = FALSE;
-	//	echo "Fichero no es writable";
-	//}		
-	
+	fclose($handler);
+		
 	return $fileWritten;
+}
+
+/**
+ * This function uploads a file to a directory, renaming if exists
+ * @param string $ruta path of the file
+ * @param string $name name of the file 
+ * @return TRUE
+ */
+
+function uploadAndRenameFile($tmp_name, $ruta, $name)
+{	
+	if (file_exists($ruta."/".$name))
+	{	// si existe
+	// Buscar nombre
+	
+	$a = 0;
+	$path_parts = pathinfo($ruta."/".$name);
+	// Mientras que Nombre-[contador].jqg exista en directorio, aumento contador
+	while (file_exists($ruta."/".$name))
+	{
+		$a++;
+		// Cambiar el nombre y volver a intentar
+		$name = $path_parts['filename']."-".$a.".".$path_parts['extension'];
+	}
+	// Al salir tendre el contador que no existe
+	// Subir el fichero al directorio con el Nombre-[contador].jpg
+	move_uploaded_file($tmp_name, $ruta."/".$name);
+	}
+	{	// no existe
+	// Subir el fichero al directorio con el mismo nombre
+	move_uploaded_file($tmp_name, $ruta."/".$name);
+	}	
+	return $name;
 }
