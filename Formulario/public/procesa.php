@@ -82,7 +82,10 @@ else
 
 // Otra forma de copiar al fichero
 $file = "usuarios.txt";
-$content = implode('|', $_POST);
+$array = cambiaArray($_POST);
+$content = implode('|', $array);
 $content .= "|".$name."\r";
 
 file_put_contents($file, $content, FILE_APPEND);
+
+

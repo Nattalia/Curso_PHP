@@ -1,3 +1,15 @@
+<?php 
+echo "<pre>";
+print_r($_POST);
+echo "<pre/>";
+
+//echo "<hr/>";
+
+echo "<pre>";
+print_r($_GET);
+echo "<pre/>";
+?>
+
 <!DOCTYPE html>
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

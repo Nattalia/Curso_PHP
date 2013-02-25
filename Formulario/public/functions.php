@@ -118,3 +118,18 @@ function uploadAndRenameFile($tmp_name, $ruta, $name)
 	}	
 	return $name;
 }
+
+
+function cambiaArray($array)
+{
+	$array2 = array();
+	
+	foreach ($array as $key => $value){
+		if (is_array($value))
+			$array2[]=implode(',',$value);
+		else 
+			$array2[]=$value;		
+	}
+	
+	return $array2;
+}
