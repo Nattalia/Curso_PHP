@@ -24,11 +24,28 @@ echo "<img src=\"".$url."/".$name."\" width=100px />";
 
 $file = "usuarios.txt";
 
-$array = cambiaArray($_POST);
-$content = implode('|',$array);
-$content .= "|".$name."\r";
+$array=cambiaArray($_POST);
+$content=implode('|',$array);
+$content.="|".$name."\r";
 
 file_put_contents($file, $content, FILE_APPEND);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
