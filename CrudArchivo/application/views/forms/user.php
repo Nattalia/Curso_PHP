@@ -1,49 +1,3 @@
-<?php 
-echo "<pre>Post: ";
-print_r($_POST);
-echo "</pre>";
-
-echo "<pre>Get: ";
-print_r($_GET);
-echo "</pre>";
-
-
-// Configuracion
-$userFilename="usuarios.txt";
-
-// Leer datos del archivo de usuarios
-$datos=file_get_contents($userFilename);
-
-// Pasar datos a un array
-$arrayDatos=explode("\r",$datos);
-
-
-if(isset($_GET['id']))
-{
-	// Leer posicion id del array
-	$usuario=$arrayDatos[$_GET['id']];
-
-	//Convertir en array
-	$usuario=explode("|",$usuario);
-}
-
-// echo "<pre>";
-// print_r($usuario);
-// echo "</pre>";
-
-
-if(!empty($usuario[8]))
-	$pets=explode(',',$usuario[8]);
-else
-	$pets=array();
-
-if(!empty($usuario[9]))
-	$sports=explode(',',$usuario[9]);
-else
-	$sports=array();
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,9 +11,7 @@ else
 
 <div id="wrapper">
 
-<form action="<?=(isset($_GET['id']))?'procesar_update.php':'procesar.php';?>" method="POST" 
-	enctype="multipart/form-data">
-
+<form method="POST" enctype="multipart/form-data">	
 	<ul>
 		<li>Id: <input type="hidden" name="id" value="<?= (isset($_GET['id']))?$_GET['id']:'1';?>"/></li>
 		<li>Name: <input type="text" name="name" value="<?= (isset($usuario[1])&&$usuario[1]!='')?$usuario[1]:'';?>" /></li>
