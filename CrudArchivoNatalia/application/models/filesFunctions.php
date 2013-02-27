@@ -80,3 +80,38 @@ function SubirArchivo($arrayFiles)
 
 	return $name;
 }
+
+
+/**
+ * Reads a configuration file section, and returns it in an array 
+ * @param string $filename
+ * @param string $section
+ * @return array $data
+ */
+function readConfig($filename, $section){
+	// Read data from file to array
+	$iniString=file_get_contents($filename);
+	$iniArray=explode("\r", $iniString);
+	
+	// Remove empty lines and comments from the array
+	$iniArrayWithoutEmpty=array();
+	foreach ($iniArray as $value)
+	{		
+		if ((trim($value) != "") and (strpos($value, ";") !== 0))
+			$iniArrayWithoutEmpty[]=trim($value);
+	}
+	
+	// Change to 2d array
+	/*$ini2dArray_01=array();
+	$ini2dArray_02=array();
+	foreach ($iniArrayWithoutEmpty as $key => $value){
+		if (strpos($value, '[') !== FALSE)
+			$ini2dArray_01[]=$value;
+		else 
+			$ini2dArray[$key][]=$value;
+	}*/
+	return $ini2dArray;	
+	
+	
+	
+}

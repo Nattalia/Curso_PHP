@@ -1,3 +1,12 @@
+<?php 
+	$prueba=readConfig('../application/configs/config.ini', '[production]');
+	echo "<pre>";
+	print_r($prueba);
+	echo "</pre>";
+	
+	var_dump($prueba);
+?>
+
 <a href="users.php?action=insert">Add</a>
 <table border=1>
 	<tr>
