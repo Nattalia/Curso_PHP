@@ -16,6 +16,7 @@ else
 $config=parse_ini_file('../application/configs/config.ini',true);
 
 
+
 // Include Gateways
 include_once('../application/models/dataGatewayFiles.php');
 
@@ -25,14 +26,14 @@ include_once('../application/models/files/filesFunctions.php');
 include_once('../application/models/users/usersFunctions.php');
 
 
+
+
 switch ($action)
 {
 	case 'insert':
 		if($_POST)
-		{			
-			$name=insertPhoto($uploadDir);
-			$_POST[]=$name;			
-			writeDataToFile($userFilename, $_POST);
+		{						
+			$id=insertUser($config, $_POST);
 			header('Location: /users.php');
 			exit;
 		}
@@ -44,57 +45,40 @@ switch ($action)
 	
 	case 'update':
 		if($_POST)
-		{			
-			$user=readUser($_GET['id'], $config);
-			$name=updatePhoto($user[11], $uploadDir);			
-			$_POST[]=$name;
-			$dataArray[$_POST['id']]=$_POST;			
-			writeDataToFile($userFilename, $dataArray, TRUE);			
+		{
+			updateUser($_GET['id'], $config);			
 			header('Location: /users.php');
 			exit;
 		}
 		else 
-		{			
-			$user=readUser($_GET['id'], $config);
-			$pets=commaToArray($usuario[8]);
-			$sports=commaToArray($usuario[9]);		
+		{
+			$user=readUser($_GET['id'], $config, $_POST);
 			include_once('../application/views/forms/user.php');
 		}
 	break;
 	
-	case 'delete':;
-		if ($_POST)
+	case 'delete':
+		if($_POST)
 		{
-			if ($_POST['submit']=='Si') 
-			{				
-				$user=readUser($_POST['id'], $config);					
-				deleteFile($user[11], $uploadDir);
-				unset($dataArray[$_POST['id']]);				
-				writeDataToFile($userFilename, $dataArray, TRUE);
-				header('Location: /users.php');
-				exit;
-								
-			}
-			
+			if($_POST['submit']=='Si')
+				deleteUser($_GET['id'],$config);
 			header('Location: /users.php');
 			exit;
-			
 		}
 		else 
 		{
-			$user=readUser($_GET['id'], $config);	
+			$user=readUser($_GET['id'], $config);
 			include_once('../application/views/users/delete.php');
 		}
 	break;
 		
-	case 'select':		
+	case 'select':
 		$users=readUsers($config);
 		include_once ('../application/views/users/select.php');
 	break;	
 	
 	default:
 		echo "Esto default";
-	break;
-	
+	break;	
 }
 

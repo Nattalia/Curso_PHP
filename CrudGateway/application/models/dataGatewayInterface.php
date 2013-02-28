@@ -2,28 +2,41 @@
 
 
 function readUsers()
-{	
-	return $array|FALSE;
-}
-
-function readUser($id)
 {
 	
 	return $array|FALSE;
 }
 
-
-function updateUser($id, $data)  
+function readUser($id)
 {
-	return $id|FALSE;
+
+	return $array|FALSE;
 }
 
-function insertUser($data)  
+function insertUser($data)
 {
-	return $id|FALSE;
+	return $id|FALSE
 }
+
+function updateUser($id,$data)
+{
+	
+	return TRUE|FALSE;
+}
+
 
 function deleteUser($id)
 {
-	return TRUE;
+	
+	return TRUE|FALSE;
+}
+
+function readPets()
+{
+	return $array;
+}
+
+function readSports()
+{
+	return $array;
 }

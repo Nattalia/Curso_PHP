@@ -30,17 +30,20 @@ function updatePhoto($lastImage, $uploadDir)
 	return $name;
 }
 
+/**
+ * Insert photo into directory
+ * @param string $uploadDir
+ * @return string
+ */
 function insertPhoto($uploadDir)
 {
 	$tmp_name = $_FILES["photo"]["tmp_name"];
 	$name = $_FILES["photo"]["name"];
 	$ruta = $_SERVER['DOCUMENT_ROOT'].$uploadDir;
 	$url = $uploadDir;
-	
 	$name=SubirArchivo($_FILES);
 	
-	return name;
-	
+	return $name;
 }
 
 

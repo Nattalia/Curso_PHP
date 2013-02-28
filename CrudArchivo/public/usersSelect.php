@@ -15,15 +15,15 @@
 		<th>photo</th>
 		<th>options</th>
 	</tr>
-<?php foreach($users as $key => $line): ?>
+<?php foreach($arrayLine as $key => $line): ?>
 	<tr>
 		<?php foreach($line as $key1 => $value):?>
-			<td><?=(is_array($value))?implode(',',$value):$value;?></td>
+			<td><?=$value;?></td>
 		<?php endforeach;?>
 		<td>
 			<a href="users.php?action=update&id=<?=$key;?>">update</a>
 				&nbsp;
-			<a href="users.php?action=delete&id=<?=$key;?>">delete</a>
+			<a href="confirmar_borrar.php?id=<?=$key;?>">delete</a>
 		</td>		
 	</tr>
 <?php endforeach; ?>

@@ -10,8 +10,16 @@ function readDataFromFile($filename)
 {
 	$content=file_get_contents($filename);
 	$arrayFile=explode("\r",$content);
-	foreach($arrayFile as $key => $line)
-		$arrayLine[] = explode('|', $line);	
+	foreach($arrayFile as $key => $line)		
+		$arrayLine[] = explode('|', $line);
+
+	foreach($arrayLine as $key => $value)
+	{
+		if(isset($value[8]))		
+			$arrayLine[$key][8]=commaToArray($value[8]);
+		if(isset($value[9]))
+			$arrayLine[$key][9]=commaToArray($value[9]);
+	}
 	return $arrayLine;
 }
 
@@ -24,6 +32,7 @@ function readDataFromFile($filename)
  */
 function writeDataToFile ($filename, $data, $rewrite=FALSE)
 {			
+	$id=0;
 	if($rewrite===TRUE)
 	{
 		foreach($data as $key => $value)
@@ -34,10 +43,11 @@ function writeDataToFile ($filename, $data, $rewrite=FALSE)
 	else
 	{
 		$data=arrayToPipes($data);
-		$data.="\r";
+		$id=count($data);
+		$data.="\r";		
 		file_put_contents($filename, $data, FILE_APPEND);
 	}
-	return;	
+	return $id;	
 }
 
 
@@ -82,9 +92,16 @@ function SubirArchivo($arrayFiles)
 }
 
 
-function deleteFile($filename, $directory){
+
+/**
+ * Delete file from directory
+ * @param string $filename
+ * @param string $directory
+ * @ return void
+ */
+function deleteFile($filename, $directory)
+{
 	$ruta = $_SERVER['DOCUMENT_ROOT'].$directory;
 	unlink($ruta."/".$filename);
 	return;
 }
-

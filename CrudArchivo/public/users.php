@@ -18,8 +18,8 @@ $userFilename=$config['production']['userFilename'];
 $uploadDir=$config['production']['uploadDirectory'];
 
 // Include Models
-include_once('../application/models/functions.php');
-include_once('../application/models/filesFunctions.php');
+include_once('../application/models/files/functions.php');
+include_once('../application/models/files/filesFunctions.php');
 include_once('../application/models/users/usersFunctions.php');
 
 
@@ -27,10 +27,10 @@ switch ($action)
 {
 	case 'insert':
 		if($_POST)
-		{			
+		{						
 			$name=insertPhoto($uploadDir);
 			$_POST[]=$name;			
-			writeDataToFile($userFilename, $_POST);
+			writeDataToFile ($userFilename, $_POST);			
 			header('Location: /users.php');
 			exit;
 		}
@@ -62,24 +62,19 @@ switch ($action)
 		}
 	break;
 	
-	case 'delete':;
-		if ($_POST)
+	case 'delete':
+		if($_POST)
 		{
-			if ($_POST['submit']=='Si') 
-			{
-				$dataArray=readDataFromFile($userFilename);															
-				$user=$dataArray[$_POST['id']];							
-				deleteFile($user[11], $uploadDir);
-				unset($dataArray[$_POST['id']]);				
+			if($_POST['submit']=='Si')
+			{		
+				$dataArray=readDataFromFile($userFilename);
+				$user=$dataArray[$_POST['id']];
+				deleteFile($user[11], $uploadDir);			
+				unset($dataArray[$_POST['id']]);
 				writeDataToFile($userFilename, $dataArray, TRUE);
-				header('Location: /users.php');
-				exit;
-								
 			}
-			
 			header('Location: /users.php');
 			exit;
-			
 		}
 		else 
 		{
@@ -90,7 +85,6 @@ switch ($action)
 	break;
 		
 	case 'select':
-		$arrayLine=readDataFromFile($userFilename);
 		$arrayLine=readDataFromFile($userFilename);
 		include_once ('../application/views/users/select.php');
 	break;	

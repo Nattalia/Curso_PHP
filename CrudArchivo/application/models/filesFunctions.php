@@ -35,6 +35,8 @@ function writeDataToFile ($filename, $data, $rewrite=FALSE)
 	{
 		$data=arrayToPipes($data);
 		$data.="\r";
+		
+		
 		file_put_contents($filename, $data, FILE_APPEND);
 	}
 	return;	
@@ -82,9 +84,16 @@ function SubirArchivo($arrayFiles)
 }
 
 
-function deleteFile($filename, $directory){
+
+/**
+ * Delete file from directory
+ * @param string $filename
+ * @param string $directory
+ * @ return void
+ */
+function deleteFile($filename, $directory)
+{
 	$ruta = $_SERVER['DOCUMENT_ROOT'].$directory;
 	unlink($ruta."/".$filename);
 	return;
 }
-
