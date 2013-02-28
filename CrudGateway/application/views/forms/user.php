@@ -14,23 +14,23 @@
 <form method="POST" enctype="multipart/form-data">	
 	<ul>
 		<li>Id: <input type="hidden" name="id" value="<?= (isset($_GET['id']))?$_GET['id']:'1';?>"/></li>
-		<li>Name: <input type="text" name="name" value="<?= (isset($usuario[1])&&$usuario[1]!='')?$usuario[1]:'';?>" /></li>
-		<li>Email: <input type="text" name="email" value="<?= (isset($usuario[2])&&$usuario[2]!='')?$usuario[2]:'';?>" /></li>
+		<li>Name: <input type="text" name="name" value="<?= (isset($user[1])&&$user[1]!='')?$user[1]:'';?>" /></li>
+		<li>Email: <input type="text" name="email" value="<?= (isset($user[2])&&$user[2]!='')?$user[2]:'';?>" /></li>
 		<li>Password: <input type="password" name="password"/></li>
-		<li>Dirección: <input type="text" name="address" value="<?= (isset($usuario[4])&&$usuario[4]!='')?$usuario[4]:'';?>"/></li>
-		<li>Descripción: <textarea rows="10" cols="10" name="description"><?= (isset($usuario[5])&&$usuario[5]!='')?$usuario[5]:'';?></textarea></li>
-		<li>Sexo: M: <input type="radio" name="sex" value="M" <?= (isset($usuario[6])&&$usuario[6]=='M')?'checked':'';?> /> 
-		H: <input type="radio" name="sex" value="H" <?= (isset($usuario[6])&&$usuario[6]=='H')?'checked':'';?> />
-		O: <input type="radio" name="sex" value="O" <?= (isset($usuario[6])&&$usuario[6]=='O')?'checked':'';?> />
+		<li>Dirección: <input type="text" name="address" value="<?= (isset($user[4])&&$user[4]!='')?$user[4]:'';?>"/></li>
+		<li>Descripción: <textarea rows="10" cols="10" name="description"><?= (isset($user[5])&&$user[5]!='')?$user[5]:'';?></textarea></li>
+		<li>Sexo: M: <input type="radio" name="sex" value="M" <?= (isset($user[6])&&$user[6]=='M')?'checked':'';?> /> 
+		H: <input type="radio" name="sex" value="H" <?= (isset($user[6])&&$user[6]=='H')?'checked':'';?> />
+		O: <input type="radio" name="sex" value="O" <?= (isset($user[6])&&$user[6]=='O')?'checked':'';?> />
 		</li>
 		<li>Ciudad: <select name="city">
-					<option value="vigo" <?= (isset($usuario[7])&&$usuario[7]=='vigo')?'selected':'';?>>Vigo</option>
-					<option value="bcn" <?= (isset($usuario[7])&&$usuario[7]=='bcn')?'selected':'';?>>Barcelona</option>
-					<option value="bilbao" <?= (isset($usuario[7])&&$usuario[7]=='bilbao')?'selected':'';?>>Bilbao</option>
+					<option value="vigo" <?= (isset($user[7])&&$user[7]=='vigo')?'selected':'';?>>Vigo</option>
+					<option value="bcn" <?= (isset($user[7])&&$user[7]=='bcn')?'selected':'';?>>Barcelona</option>
+					<option value="bilbao" <?= (isset($user[7])&&$user[7]=='bilbao')?'selected':'';?>>Bilbao</option>
 					</select></li>
 		<li>Foto: <input type="file" name="photo"/>
-		<?php if(isset($usuario[11])): ?>
-			<img src="<?="/uploads/".$usuario[11];?>" width=100px />
+		<?php if(isset($user[11])): ?>
+			<img src="<?="/uploads/".$user[11];?>" width=100px />
 		<?php endif; ?>
 		</li>
 		<li>Mascotas: Tigre: <input type="checkbox" name="pets[]" value="tiger" <?= (isset($pets)&&in_array('tiger',$pets))?'checked':'';?>/>
