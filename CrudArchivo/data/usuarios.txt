@@ -1,1 +1,1 @@
-1|bbbbbbbbbbbbbb|bbbbbbbbbbbbb|bbbbbbbbbbbb|bbbbbbbbbbb|fdgdfgfdgfd|M|bcn|tiger,spider|beisbol|Enviar|Balloon.bmp
+0|bbbbbbbbbbbbbb|bbbbbbbbbbbbb||bbbbbbbbbbb|fdgdfgfdgfd|M|bcn|tiger,spider|beisbol|Enviar|Balloon.bmp

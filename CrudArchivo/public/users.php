@@ -57,7 +57,7 @@ switch ($action)
 			$dataArray=readDataFromFile($userFilename);
 			$usuario=$dataArray[$_GET['id']];		
 			$pets=commaToArray($usuario[8]);
-			$sports=commaToArray($usuario[9]);		
+			$sports=commaToArray($usuario[9]);				
 			include_once('../application/views/forms/user.php');
 		}
 	break;

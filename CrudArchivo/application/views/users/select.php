@@ -1,3 +1,19 @@
+<?php 
+
+$ini=parse_ini_file("../application/configs/config.ini", TRUE);
+
+echo "<pre>";
+print_r($ini);
+echo "</pre>";
+echo "<br/>";
+
+$ini2=readConfig("../application/configs/config.ini", "otras");
+
+echo "<pre>";
+print_r($ini2);
+echo "</pre>";
+?>
+
 <a href="users.php?action=insert">Add</a>
 <table border=1>
 	<tr>
