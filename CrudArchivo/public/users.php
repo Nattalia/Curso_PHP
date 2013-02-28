@@ -18,8 +18,8 @@ $userFilename=$config['production']['userFilename'];
 $uploadDir=$config['production']['uploadDirectory'];
 
 // Include Models
-include_once('../application/models/files/functions.php');
-include_once('../application/models/files/filesFunctions.php');
+include_once('../application/models/functions.php');
+include_once('../application/models/filesFunctions.php');
 include_once('../application/models/users/usersFunctions.php');
 
 
