@@ -46,13 +46,13 @@ switch ($action)
 	case 'update':
 		if($_POST)
 		{
-			updateUser($_GET['id'], $config);			
+			updateUser($_GET['id'], $config, $_POST);			
 			header('Location: /users.php');
 			exit;
 		}
 		else 
 		{
-			$user=readUser($_GET['id'], $config, $_POST);
+			$user=readUser($_GET['id'], $config);
 			include_once('../application/views/forms/user.php');
 		}
 	break;

@@ -76,6 +76,7 @@ function updateUser($id,$config, $data)
 	$userFilename=$config['production']['userFilename'];
 	
 	$user=readUser($id, $config);
+	$dataArray=readUsers($config);
 	$name=updatePhoto($user[11], $uploadDir);
 	$data[]=$name;
 	$dataArray[$data['id']]=$data;
