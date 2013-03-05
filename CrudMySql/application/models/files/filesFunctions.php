@@ -36,9 +36,10 @@ function writeDataToFile ($filename, $data, $rewrite=FALSE)
 	if($rewrite===TRUE)
 	{
 		foreach($data as $key => $value)
-			$pipes[]=arrayToPipes($value);
-		$data=implode("\r",$pipes);
-		file_put_contents($filename, $data);
+			$pipes[]=arrayToPipes($value);		
+		
+		$data=implode("\r",$pipes);		
+		$ret=file_put_contents($filename, $data);
 	}
 	else
 	{

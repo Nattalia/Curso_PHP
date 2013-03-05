@@ -10,32 +10,41 @@
  */
 function readUsers($config)
 {
-	$cnx=connectDB($config);	
+	$cnx=connectDB($config);
 	$query = "SELECT * FROM users";
-	$result = mysql_query($query, $cnx);
-	while ($row = mysql_fetch_assoc($result))
-	{		
+	$result=mysqli_query($cnx,$query);
+	while ($row = mysqli_fetch_assoc($result)) 
+	{
 		$users [] = $row;
-	}	
+	}
 	return $users;
 }
 
-
+/**
+ * Connect to Mysql
+ * @param array $config
+ * @return resource $cnx
+ */
 function connectDB($config)
 {
-	// Conectar al servidor de BD
-	$cnx = mysql_connect($config['db.server'], $config['db.user'], $config['db.password']);
-	
+	// Conectar al servidor de DB
+	$cnx = mysqli_connect($config['db.server'],$config['db.user'],
+						  $config['db.password'],$config['db.database']);
 	// Conectar a la BD
-	mysql_select_db($config['db.database']);
+	//mysqli_select_db($config['db.database']);
+	
+	return $cnx;
 }
 
+/**
+ * Disconnect from Mysql 
+ * @param unknown $cnx
+ */
 function disconnectDB($cnx)
 {
-	mysql_close($cnx);
-	return;	
+	mysqli_close($cnx);
+	return;
 }
- 
 
 /**
  * Read id user from mysql 
@@ -45,83 +54,134 @@ function disconnectDB($cnx)
  */
 function readUser($id, $config)
 {
-	$userFilename=$config['production']['userFilename'];
+	// Conectar al servidor y la DB
+	$cnx = mysqli_connect($config['db.server'],$config['db.user'],
+			$config['db.password'],$config['db.database']);
+	// Leer el usuario id
+	$query="SELECT * FROM users WHERE iduser=".$id;
+	$result=mysqli_query($cnx,$query);
+	while ($row = mysqli_fetch_assoc($result)) 
+	{
+		$user [] = $row;
+	}
 	
-	$dataArray=readDataFromFile($userFilename);
-	$user=$dataArray[$id];
+	// FIXME: --5.03.13--acl--Normalizar la base de datos
+	$user[0]['pets']=explode(',',$user[0]['pets']);
 	
-	return $user;
+	
+	
+	$query="SELECT * FROM users_has_sports WHERE users_iduser=".$id;
+	
+	echo $query;
+	$result=mysqli_query($cnx,$query);
+	$user[0]['sports']=mysqli_fetch_assoc($result);
+	
+	return $user[0];
+	
+	
+	// Retornar un array 	
 }
 
 /**
- * Delete user from file
+ * Delete user from mysql
  * @param int $id
  * @param array $config
  * @return void;
  */
 function deleteUser($id,$config)
 {
-	$uploadDir=$config['production']['uploadDirectory'];
-	$userFilename=$config['production']['userFilename'];
-	
-	$user=readUser($id, $config);
-	$users=readUsers($config);
-	deleteFile($user[11], $uploadDir);
-	unset($users[$_POST['id']]);
-	writeDataToFile($userFilename, $users, TRUE);
-	
-	return;
+
 }
 
 /**
- * Update id user 
+ * Update id user into mysql 
  * @param int $id
  * @param array $config
  * @param array $data
  */
 function updateUser($id,$config, $data)
 {
-	$uploadDir=$config['production']['uploadDirectory'];
-	$userFilename=$config['production']['userFilename'];
+	// Conectar al servidor y a la DB
 	
-	$user=readUser($id, $config);
-	$dataArray=readUsers($config);
-	$name=updatePhoto($user[11], $uploadDir);
-	$data[]=$name;
-	$dataArray[$data['id']]=$data;
-	writeDataToFile($userFilename, $dataArray, TRUE);
+	// Actualizar usuario
 	
-	return;
+	// Actualizar deportes del usuario
+	
+	
+	
+	
 }
 
 /**
- * Insert user into file
+ * Insert user into mysql
  * @param array $config
  * @param array $data
  * @return int $id
  */
 function insertUser($config, $data)
 {
-	echo "<pre>";
+	// Conectar al servidor y a la DB	
+	$cnx = mysqli_connect($config['db.server'],$config['db.user'],
+						  $config['db.password'],$config['db.database']);
+	
+	
+	$data['photo']=insertPhoto($config['uploadDirectory']);
+	
+	echo "<pre>data:";
 	print_r($data);
-	echo "</pre>";
-	$cnx = connectDB($config);
+	echo "<pre>";
 	
-	// Leer usuarios de la tabla
-	$query = "INSERT INTO users (name, email, password, address, description, pets, genders_idgender, cities_idcity) 
-			  VALUES (".$data[1].",".$data[2].")";
-	$result = mysql_query($query);
+	// Insertar el usuario
+	$query="INSERT INTO users SET 
+				name = '".$data['name']."',
+				email = '".$data['email']."', 
+				password = '".$data['password']."',
+				address = '".$data['address']."',
+				description = '".$data['description']."',
+				pets = '".implode(',',$data['pets'])."',
+				photo = '".$data['photo']."',
+				genders_idgender = ".$data['sex'].", 
+				cities_idcity = ".$data['city']."
+			";
 	
-	// Leer el recordset
-	while ($row = mysql_fetch_assoc($result))
-	{		
-		$users [] = $row;
+	mysqli_query($cnx, $query);
+	$id=mysqli_insert_id($cnx);
+	
+
+	// Insertar los deportes del usuario
+	foreach ($data['sports'] as $key => $value)
+	{	
+		$query2="INSERT INTO users_has_sports SET
+					users_iduser =".$id.",
+					sports_idsport =".$value."
+				";
+		
+		mysqli_query($cnx, $query2);
 	}
+		
+	// Retornar el id de usuario
 	
-	// Devolver array
-	return $users;
+	return $id;
 }
 
-
-
+/**
+ * Initialize user
+ * 
+ * @return array $user
+ */
+function initUser()
+{
+	$user=array(
+			'name'=>'',
+			'email'=>'',
+			'password'=>'',
+			'description'=>'',
+			'address'=>'',
+			'pets'=>array(),
+			'sports'=>array(),
+			'genders_idgender'=>'',
+			'cities_idcity'=>''
+	);
+	return $user;
+}
 

@@ -57,6 +57,9 @@ function deleteUser($id,$config)
 	
 	$user=readUser($id, $config);
 	$users=readUsers($config);
+	
+	
+	
 	deleteFile($user[11], $uploadDir);
 	unset($users[$_POST['id']]);
 	writeDataToFile($userFilename, $users, TRUE);
@@ -80,8 +83,8 @@ function updateUser($id,$config, $data)
 	$name=updatePhoto($user[11], $uploadDir);
 	$data[]=$name;
 	$dataArray[$data['id']]=$data;
-	writeDataToFile($userFilename, $dataArray, TRUE);
 	
+	writeDataToFile($userFilename, $dataArray, TRUE);	
 	return;
 }
 

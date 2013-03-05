@@ -11,22 +11,25 @@ if(isset($_GET['action']))
 else 
 	$action = 'select';
 
-
 // Read config
 $config=parse_ini_file('../application/configs/config.ini',true);
-$config=$config["production"];
+$config=$config['production'];
+// $config = ReadConfig ('../application/configs/config.ini', 'development');
 
 
 // Include Gateways
 include_once('../application/models/dataGatewayMysql.php');
 
+// Include actionHelpers
+include_once('../application/controllers/helpers/actionHelpersFunctions.php');
+
+// Include viewHelpers
+include_once('../application/views/helpers/helpersFunctions.php');
+
 // Include Models
-include_once('../application/models/mysql/functions.php');
-include_once('../application/models/mysql/filesFunctions.php');
+include_once('../application/models/files/functions.php');
+include_once('../application/models/files/filesFunctions.php');
 include_once('../application/models/users/usersFunctions.php');
-
-
-
 
 switch ($action)
 {
@@ -38,7 +41,8 @@ switch ($action)
 			exit;
 		}
 		else
-		{
+		{	
+			$user=initUser();
 			include_once('../application/views/forms/user.php');
 		}
 	break;
@@ -52,7 +56,8 @@ switch ($action)
 		}
 		else 
 		{
-			$user=readUser($_GET['id'], $config);
+			$user=readUser($_GET['id'], $config, $_POST);
+			debug('users',$user);
 			include_once('../application/views/forms/user.php');
 		}
 	break;
