@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Confirmar Borrar</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta name="robots" content="noarchive,noindex">
-<meta name="description" content="Formulario">
-<meta name="keywords" content="Formulario">
-<link rel="stylesheet" type="text/css" href="/style.css">
-</head>
-<body>
+<?php  
+$users = $viewVars['users'];
+?>
 <a href="users.php?action=insert">Add</a>
 <table border=1>
 	<tr>
@@ -38,5 +30,3 @@
 	</tr>
 <?php endforeach; ?>
 </table>
-</body>
-</html>

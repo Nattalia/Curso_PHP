@@ -22,6 +22,7 @@ include_once('../application/models/dataGatewayMysql.php');
 
 // Include actionHelpers
 include_once('../application/controllers/helpers/actionHelpersFunctions.php');
+include_once('../application/controllers/helpers/viewFunctions.php');
 
 // Include viewHelpers
 include_once('../application/views/helpers/helpersFunctions.php');
@@ -30,6 +31,9 @@ include_once('../application/views/helpers/helpersFunctions.php');
 include_once('../application/models/files/functions.php');
 include_once('../application/models/files/filesFunctions.php');
 include_once('../application/models/users/usersFunctions.php');
+
+
+
 
 
 switch ($action)
@@ -43,8 +47,11 @@ switch ($action)
 		}
 		else
 		{	
+			ob_start();
 			$user=initUser();
 			include_once('../application/views/forms/user.php');
+			$content = ob_get_clean();
+			ob_end_flush();
 		}
 	break;
 	
@@ -57,8 +64,11 @@ switch ($action)
 		}
 		else 
 		{
+			ob_start();
 			$user=readUser($_GET['id'], $config, $_POST);
 			include_once('../application/views/forms/user.php');
+			$content = ob_get_clean();
+			ob_end_flush();
 		}
 	break;
 	
@@ -72,17 +82,18 @@ switch ($action)
 		}
 		else 
 		{
+			ob_start();
 			$user=readUser($_GET['id'], $config);
 			include_once('../application/views/users/delete.php');
+			$content = ob_get_clean();
+			ob_end_flush();
 		}
 	break;
 		
 	case 'select':
-		ob_start();
 		$users=readUsers($config);
-		include_once ('../application/views/users/select.php');
-		$content = ob_get_clean();
-		ob_end_flush();
+		$viewVars=array('users'=>$users);
+		renderView($config, 'users/select.php', $viewVars);		
 	break;	
 	
 	default:
@@ -90,7 +101,9 @@ switch ($action)
 	break;	
 }
 
-//$content="Mi contenido";
-// Include Layouts
-include_once('../application/layouts/layout.php');
+
+$layoutVars=array('content'=>$content);
+$layout=renderLayout($config);
+
+echo $layout;
 
