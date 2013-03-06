@@ -57,7 +57,6 @@ switch ($action)
 		else 
 		{
 			$user=readUser($_GET['id'], $config, $_POST);
-			debug('users',$user);
 			include_once('../application/views/forms/user.php');
 		}
 	break;
