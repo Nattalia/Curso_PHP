@@ -36,22 +36,33 @@ $title=$layoutVars['title'];
 			<div>
 				<?php include 'partials/nav.php';?>
 			</div>			  
-			<div class="hr"></div>		  
-								      
+			<div class="hr"></div>			  
+			<div id="preview_wrap">
+				<?php include 'partials/preview.php';?>		
+			</div>
+			<div id="thumbs">
+				<?php include 'partials/thumbs.php';?>				
+			</div>			      
 			<div id="contentWrap">
 				<div class="hr_line"></div>
 				<div id="content-two-third">
 					<?php //include 'partials/content.php';?>
 					<?=$content;?>
 				</div>
-				
+				<div id="column" class="right">
+					<?php include 'partials/right.php';?>      
+				</div>
 			</div>
 			<div id="footer">
 				<?php include 'partials/footer.php';?>		    
 			</div>
-			
+			<div id="social">
+				<?php include 'partials/socials.php';?>  	
+			</div>
 		</div>	
-		<div class="bottom"></div>		
+		<div class="bottom"></div>
 		
+		<!-- twitter -->
+		<?php include 'partials/twitter.php';?> 
 	</body>
 </html>

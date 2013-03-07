@@ -24,6 +24,7 @@ include_once('../application/models/dataGatewayMysql.php');
 include_once('../application/controllers/helpers/actionHelpersFunctions.php');
 include_once('../application/controllers/helpers/viewFunctions.php');
 
+
 // Include viewHelpers
 include_once('../application/views/helpers/helpersFunctions.php');
 
@@ -31,8 +32,6 @@ include_once('../application/views/helpers/helpersFunctions.php');
 include_once('../application/models/files/functions.php');
 include_once('../application/models/files/filesFunctions.php');
 include_once('../application/models/users/usersFunctions.php');
-
-
 
 
 
@@ -48,9 +47,9 @@ switch ($action)
 		else
 		{	
 			ob_start();
-			$user=initUser();
-			include_once('../application/views/forms/user.php');
-			$content = ob_get_clean();
+				$user=initUser();
+				include_once('../application/views/forms/user.php');
+			$content=ob_get_clean();
 			ob_end_flush();
 		}
 	break;
@@ -65,9 +64,9 @@ switch ($action)
 		else 
 		{
 			ob_start();
-			$user=readUser($_GET['id'], $config, $_POST);
-			include_once('../application/views/forms/user.php');
-			$content = ob_get_clean();
+				$user=readUser($_GET['id'], $config, $_POST);
+				include_once('../application/views/forms/user.php');
+			$content=ob_get_clean();
 			ob_end_flush();
 		}
 	break;
@@ -83,17 +82,18 @@ switch ($action)
 		else 
 		{
 			ob_start();
-			$user=readUser($_GET['id'], $config);
-			include_once('../application/views/users/delete.php');
-			$content = ob_get_clean();
+				$user=readUser($_GET['id'], $config);
+				include_once('../application/views/users/delete.php');
+			$content=ob_get_clean();
 			ob_end_flush();
 		}
 	break;
 		
 	case 'select':
 		$users=readUsers($config);
-		$viewVars=array('users'=>$users);
-		renderView($config, 'users/select.php', $viewVars);		
+		$viewVars=array('users'=>$users,
+						'title'=>'Usuarios de la aplicación');
+		$content=renderView($config, 'users/select.php', $viewVars);		
 	break;	
 	
 	default:
@@ -101,9 +101,17 @@ switch ($action)
 	break;	
 }
 
-
-$layoutVars=array('content'=>$content);
-$layout=renderLayout($config);
+$layoutVars=array('content'=>$content,
+				  'title'=>'Mi application');
+$layout=renderLayout($config, "layout.php", $layoutVars);
 
 echo $layout;
+
+
+
+
+
+
+
+
 

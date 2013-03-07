@@ -1,7 +1,7 @@
 <div class="on-third-right">
         <h4>Featured work</h4>
         <h5>Featured project title</h5>
-        <a href="#"><img src="assets/images/portoflio/1.jpg" class="portfolio" alt="featured"/></a></div>
+        <a href="#"><img src="/assets/images/portoflio/1.jpg" class="portfolio" alt="featured"/></a></div>
       <div>
         <h4>What clients said</h4>
         <div class="blockquote">
@@ -10,5 +10,5 @@
       </div>
       <div id="twitter">
         <h4> <span class="icon">Latest tweet</span> <span class="alltweets"> <a href="http://www.twitter.com/agurghis">All tweets</a></span></h4>
-        <div id="twitter_right"> Please wait while our tweets load <img src="assets/images/images/indicator.gif" alt="loading"/></div>
+        <div id="twitter_right"> Please wait while our tweets load <img src="/assets/images/images/indicator.gif" alt="loading"/></div>
       </div>
