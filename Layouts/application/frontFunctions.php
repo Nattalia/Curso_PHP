@@ -41,3 +41,64 @@ function router($config)
 // 	die;
 	return $route;
 }
+
+
+
+function acl($route)
+{
+	
+	if(!isset($_SESSION['idrol']))
+	{
+		// FIXME: -8.03.2013-acl-: HARDCODE DEFAULT ROL
+		$_SESSION['idrol']=4;
+	}
+	
+
+	$permissions = array('1'=>
+			array('index'.'.'.'index',
+					'author'.'.'.'login',
+					'author'.'.'.'logout',
+					'users'.'.'.'select',
+					'users'.'.'.'insert',
+					'users'.'.'.'update',
+					'users'.'.'.'delete'),
+			'3'=>array('index'.'.'.'index',
+					'author'.'.'.'login',
+					'author'.'.'.'logout'),
+			'4'=>array('index'.'.'.'index',
+					'author'.'.'.'login',
+					'author'.'.'.'logout')
+	);
+	
+	
+	if(isset($_SESSION['iduser']))
+	{				
+		if(in_array($route['controller'].'.'.$route['action'],
+					$permissions[$_SESSION['idrol']]))
+		{			
+			return $route;
+		}			
+	}	
+	elseif($_SESSION['idrol']===4)
+	{
+		if(in_array($route['controller'].'.'.$route['action'],
+				$permissions[$_SESSION['idrol']]))
+		{
+			return $route;
+		}
+		
+	}
+	$route['controller']='author';
+	$route['action']='login';
+	
+	return $route;
+}
+
+
+
+
+
+
+
+
+
