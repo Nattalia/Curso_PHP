@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<markers>
+  <marker>
+    <marker_id>3</marker_id>
+    <map_id>1</map_id>
+    <title></title>
+    <address>Ronda de Outeiro, 24</address>
+    <desc></desc>
+    <pic></pic>
+    <icon></icon>
+    <linkd></linkd>
+    <lat>42.8523621</lat>
+    <lng>-7.161782399999993</lng>
+    <anim></anim>
+    <infoopen></infoopen>
+  </marker>
+  <marker>
+    <marker_id>4</marker_id>
+    <map_id>1</map_id>
+    <title></title>
+    <address>Ronda de Outeiro, 24, A Coru&#xF1;a</address>
+    <desc></desc>
+    <pic></pic>
+    <icon></icon>
+    <linkd></linkd>
+    <lat>43.3537134</lat>
+    <lng>-8.397559499999943</lng>
+    <anim></anim>
+    <infoopen></infoopen>
+  </marker>
+</markers>
