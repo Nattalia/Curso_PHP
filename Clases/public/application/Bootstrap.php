@@ -2,20 +2,35 @@
 
 class Bootstrap
 {
-	// Read config
+	
+	
 	// Include Gateways
 	// Include ActionHelpers
 	// Include ViewHelpers
 	// Include Models
 	// Include FrontFunction
-	// Start Session
+	
 	// Route 
 	// Acl
 	
 	
+	// Start Session
+	protected function startRegistrer()
+	{
+		session_start();
+		$_SESSION['registrer']=array();
+		$_SESSION['app']=array();
+	}
 	
-	$config=parse_ini_file('../application/configs/config.ini',true);
-	$config=$config['production'];
+	// Read config
+	protected function readConfig()
+	{
+		$config=parse_ini_file('../application/configs/config.ini',true);
+		$config=$config['production'];
+		$_SESSION['registrer']['config']=$config;
+	} 
+	
+	
 	// $config = ReadConfig ('../application/configs/config.ini', 'development');
 	
 	
