@@ -16,8 +16,7 @@ class models_dataGatewayMysql
 							);
 		// Conectar a la BD
 		//mysqli_select_db($config['db.database']);
-		
-		return $link;
+		$this->link = $link;
 	}
 	
 	static public function newInstance()

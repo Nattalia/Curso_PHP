@@ -25,8 +25,8 @@ class Bootstrap
 		
 		$this->startRegister();
 		$this->readConfig();		
-		$this->route=$this->router($this->config);
-		$this->route=$this->acl($this->route);
+		$this->router($this->config);
+		$this->route=$this->acl();
 		
 		return $this->route;
 	}
@@ -44,16 +44,17 @@ class Bootstrap
 		$config=parse_ini_file($this->config,true);
 		$config=$config[$this->env];
 		// $config = ReadConfig ('../application/configs/config.ini', $this->env);
-		$_SESSION['register']['config']=$config;		
+		$_SESSION['register']['config']=$config;	
 	}	
 	
 	protected function router()
 	{
+		$config=$_SESSION['register']['config'];
 			
-		$config=$this->config;	
 		$controllerActions=array(
 				'index'=>array('index'),
 				'author'=>array('login','logout'),
+				'ws'=>array('index', 'client'),
 				'users'=>array('insert','update','delete','select')
 		);
 		$parse=explode('/',$_SERVER['REQUEST_URI']);
@@ -61,18 +62,21 @@ class Bootstrap
 		$route['controller']=$parse[1];
 		@$route['action']=$parse[2];
 		
-		if(file_exists($config['path.controllers']."/".$route['controller'].".php"))
-		if(in_array($route['action'],$controllerActions[$route['controller']]))
+				
+		if(file_exists($config['path.controllers']."/".$route['controller']."Controller.php"))
 		{
-			for($i=3;$i<sizeof($parse);$i+=2)
+			if(in_array($route['action'],$controllerActions[$route['controller']]))
 			{
-				$_REQUEST[$parse[$i]]=$parse[$i+1];
+				for($i=3;$i<sizeof($parse);$i+=2)
+				{
+					$_REQUEST[$parse[$i]]=$parse[$i+1];
+				}
 			}
-		}
-		else
-		{
-			$route['controller']='error';
-			$route['action']=NO_ACTION;
+			else
+			{
+				$route['controller']='error';
+				$route['action']=NO_ACTION;
+			}
 		}
 		else
 		{
@@ -82,6 +86,7 @@ class Bootstrap
 			$route['controller']='index';
 			$route['action']='index';
 		}
+		
 		
 		$this->route=$route;
 	}
@@ -109,16 +114,18 @@ class Bootstrap
 						'author'.'.'.'logout'),
 				'4'=>array('index'.'.'.'index',
 						'author'.'.'.'login',
+						'users'.'.'.'select',
+						'ws'.'.'.'index',
+						'ws'.'.'.'client',
 						'author'.'.'.'logout')
 		);
-		
 		
 		if(isset($_SESSION['iduser']))
 		{
 			if(in_array($route['controller'].'.'.$route['action'],
 					$permissions[$_SESSION['idrol']]))
 			{
-				return $route;
+				$this->route = $route;
 			}
 		}
 		elseif($_SESSION['idrol']===4)
@@ -126,12 +133,15 @@ class Bootstrap
 			if(in_array($route['controller'].'.'.$route['action'],
 					$permissions[$_SESSION['idrol']]))
 			{
-				return $route;
+				$this->route = $route;
 			}
 		
 		}
-		$route['controller']='index';
-		$route['action']='index';
+		else
+		{ 
+			$route['controller']='index';
+			$route['action']='index';
+		}
 		
 		
 		$this->route=$route;

@@ -7,14 +7,16 @@ class controllers_frontController
 	
 	public function __construct($route)
 	{
+		
 		$route = $route -> getRoute();
+		
 		$this->config = $_SESSION['register']['config'];	
 				
-		$string ="controllers_".$route['controller']."Controller";
-		$string2 = $route['action']."Action";
+		$controller ="controllers_".$route['controller']."Controller";
+		$action = $route['action']."Action";
 		
-		$controller = new $string;
-		$this->content = $controller->$string2(); 
+		$instance = new $controller;
+		$this->content = $instance->$action(); 
 		
 		$layoutVars=array('content'=>$this->content,
 				'title'=>'Mi application');

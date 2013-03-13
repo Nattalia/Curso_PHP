@@ -10,13 +10,18 @@ class controllers_usersController extends controllers_abstractController
 {
 	public function __construct()
 	{
-		echo "esto es users contructor";
+		
 	}
 	
 	
 	public function selectAction()
 	{
-		$users=models_users_users($config);
+		$model = new models_users_users($_SESSION['register']['config']);
+		$users = $model->readUsersFrom();
+		echo "<pre>Users: ";
+		print_r($users);
+		echo "</pre>";
+		die;
 		$viewVars=array('users'=>$users,
 						'title'=>'Usuarios de la aplicación');
 		$this->content=controllers_helpers_actionHelpers::renderView('users/select.php', $viewVars);
