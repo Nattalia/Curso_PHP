@@ -53,8 +53,8 @@ class Bootstrap
 			
 		$controllerActions=array(
 				'index'=>array('index'),
+				'ws'=>array('index','client'),
 				'author'=>array('login','logout'),
-				'ws'=>array('index', 'client'),
 				'users'=>array('insert','update','delete','select')
 		);
 		$parse=explode('/',$_SERVER['REQUEST_URI']);

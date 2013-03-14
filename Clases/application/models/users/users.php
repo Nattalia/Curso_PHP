@@ -54,6 +54,5 @@ class models_users_users
 	{
 		
 	}
-		
 	
 }

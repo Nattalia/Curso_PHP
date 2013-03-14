@@ -17,11 +17,17 @@ class controllers_usersController extends controllers_abstractController
 	public function selectAction()
 	{
 		$model = new models_users_users($_SESSION['register']['config']);
-		$users = $model->readUsersFrom();
-		echo "<pre>Users: ";
+		$users = $model->readUsers();
+		
+		$model = new models_ws_ws($_SESSION['register']['config']);
+		$users = $model->readUsers();
+		
+		
+		/*echo "<pre>Users: ";
 		print_r($users);
 		echo "</pre>";
-		die;
+		die;*/
+		
 		$viewVars=array('users'=>$users,
 						'title'=>'Usuarios de la aplicación');
 		$this->content=controllers_helpers_actionHelpers::renderView('users/select.php', $viewVars);
