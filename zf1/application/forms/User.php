@@ -70,15 +70,15 @@ public function init()
          ->addValidator('NotEmpty');
     
     $rol = new Zend_Form_Element_Text('roles_idrol');
-    $name->setLabel('Rol')
-    ->setRequired(true)
-    ->addFilter('StripTags')
-    ->addFilter('StringTrim')
-    ->addValidator('NotEmpty');
+    $rol->setLabel('Rol')
+        ->setRequired(true)
+        ->addFilter('StripTags')
+        ->addFilter('StringTrim')
+        ->addValidator('NotEmpty');
     
     $submit = new Zend_Form_Element_Submit('submit');
     $submit->setAttrib('id', 'submitbutton');
     
-    $this->addElements(array($id, $name, $email, $password, $address, $description, $pets, $sports, $gender, $photo, $city, $submit));
+    $this->addElements(array($id, $name, $email, $password, $address, $description, $pets, $sports, $gender, $photo, $city, $rol, $submit));
     }
 }
